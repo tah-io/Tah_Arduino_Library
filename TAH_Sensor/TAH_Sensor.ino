@@ -68,7 +68,7 @@ void loop()
       //////////////////////////////////////////////
       
       
-      //////////////Pin Type Analog ////////////
+      ////////////// Temperature Sensor ////////////
       else if(Sensor_Type == 1 )
       {
          updateTemperatureSensor(Pin_No);
@@ -77,19 +77,58 @@ void loop()
       //////////////////////////////////////////////
       
       
-       //////////////Pin Type Servo ////////////
+       ////////////// Touch Sensor ////////////////
       else if(Sensor_Type == 2)
        {
-
+          updateTouchSensor(Pin_No);
        }
 
       ////////////////////////////////////////////// 
       
+     
+     ////////////// Light Sensor //////////////////
       else if(Sensor_Type == 3)
       {
-
+          updateLightSensor(Pin_No);
       }
-
+     
+     //////////////////////////////////////////////
+     
+     
+     ////////////// Rain Sensor //////////////////
+      else if(Sensor_Type == 4)
+      {
+          updateRainSensor(Pin_No);
+      }
+     
+     //////////////////////////////////////////////
+     
+     
+     ////////////// Wind Sensor //////////////////
+      else if(Sensor_Type == 5)
+      {
+          updateWindSensor(Pin_No);
+      }
+     
+     //////////////////////////////////////////////
+     
+     
+     ////////////// PIR Motion Sensor ////////////
+      else if(Sensor_Type == 6)
+      {
+          updatePIRMotionSensor(Pin_No);
+      }
+     
+     //////////////////////////////////////////////
+     
+     
+     ////////////// Soil Moisture Sensor /////////
+      else if(Sensor_Type == 7)
+      {
+          updateSoilMoistureSensor(Pin_No);
+      }
+     
+     //////////////////////////////////////////////
      
    
       }
@@ -178,3 +217,222 @@ void updateTemperatureSensor(int Pin_No)
   
 }
 
+
+
+
+// 2: Touch Sensor Data Read Function
+void updateTouchSensor(int Pin_No)
+{
+  int touch;
+   
+  touch = digitalRead(Pin_No);
+  
+  Serial1.print("D");
+  Serial1.print(Pin_No);
+  Serial1.print(":");
+  Serial1.println(touch);
+  
+  
+}
+
+
+
+// 3: Light Sensor Data Read Function
+void updateLightSensor(int Pin_No)
+{
+  int light;
+  
+  
+    if(Pin_No == 410)
+  {
+    pinMode(A0, INPUT);
+    light = analogRead(A0);
+  }
+  else if(Pin_No == 411)
+  {
+    pinMode(A1, INPUT);
+    light = analogRead(A1);
+  }
+  else if(Pin_No == 412)
+  {
+    pinMode(A2, INPUT);
+    light = analogRead(A2);
+  }
+  else if(Pin_No == 413)
+  {
+    pinMode(A3, INPUT);
+    light = analogRead(A3);
+  }
+  else if(Pin_No == 414)
+  {
+    pinMode(A4, INPUT);
+    light = analogRead(A4);
+  }
+  else if(Pin_No == 415)
+  {
+    pinMode(A5, INPUT);
+    light = analogRead(A5);
+  }
+   
+  Serial1.print("D");
+  Serial1.print(Pin_No);
+  Serial1.print(":");
+  Serial1.println(light);
+  
+  
+}
+
+
+
+// 4: Rain Sensor Data Read Function
+void updateRainSensor(int Pin_No)
+{
+  int rain;
+  
+    if(Pin_No == 410)
+  {
+    pinMode(A0, INPUT);
+    rain = analogRead(A0);
+  }
+  else if(Pin_No == 411)
+  {
+    pinMode(A1, INPUT);
+    rain = analogRead(A1);
+  }
+  else if(Pin_No == 412)
+  {
+    pinMode(A2, INPUT);
+    rain = analogRead(A2);
+  }
+  else if(Pin_No == 413)
+  {
+    pinMode(A3, INPUT);
+    rain = analogRead(A3);
+  }
+  else if(Pin_No == 414)
+  {
+    pinMode(A4, INPUT);
+    rain = analogRead(A4);
+  }
+  else if(Pin_No == 415)
+  {
+    pinMode(A5, INPUT);
+    rain = analogRead(A5);
+  }
+   
+  Serial1.print("D");
+  Serial1.print(Pin_No);
+  Serial1.print(":");
+  Serial1.println(rain);
+  
+  
+}
+
+
+
+// 5: Wind Sensor Data Read Function
+void updateWindSensor(int Pin_No)
+{
+  int wind;
+  
+    if(Pin_No == 410)
+  {
+    pinMode(A0, INPUT);
+    wind = analogRead(A0);
+  }
+  else if(Pin_No == 411)
+  {
+    pinMode(A1, INPUT);
+    wind = analogRead(A1);
+  }
+  else if(Pin_No == 412)
+  {
+    pinMode(A2, INPUT);
+    wind = analogRead(A2);
+  }
+  else if(Pin_No == 413)
+  {
+    pinMode(A3, INPUT);
+    wind = analogRead(A3);
+  }
+  else if(Pin_No == 414)
+  {
+    pinMode(A4, INPUT);
+    wind = analogRead(A4);
+  }
+  else if(Pin_No == 415)
+  {
+    pinMode(A5, INPUT);
+    wind = analogRead(A5);
+  }
+   
+  Serial1.print("D");
+  Serial1.print(Pin_No);
+  Serial1.print(":");
+  Serial1.println(wind);
+  
+  
+}
+
+
+
+// 6: PIR Motion Sensor Data Read Function
+void updatePIRMotionSensor(int Pin_No)
+{
+  int motion;
+  
+  motion = digitalRead(Pin_No);
+   
+  Serial1.print("D");
+  Serial1.print(Pin_No);
+  Serial1.print(":");
+  Serial1.println(motion);
+  
+  
+}
+
+
+
+// 7: Soil Moisture Sensor Data Read Function
+void updateSoilMoistureSensor(int Pin_No)
+{
+  int moisture;
+  
+    if(Pin_No == 410)
+  {
+    pinMode(A0, INPUT);
+    moisture = analogRead(A0);
+  }
+  else if(Pin_No == 411)
+  {
+    pinMode(A1, INPUT);
+    moisture = analogRead(A1);
+  }
+  else if(Pin_No == 412)
+  {
+    pinMode(A2, INPUT);
+    moisture = analogRead(A2);
+  }
+  else if(Pin_No == 413)
+  {
+    pinMode(A3, INPUT);
+    moisture = analogRead(A3);
+  }
+  else if(Pin_No == 414)
+  {
+    pinMode(A4, INPUT);
+    moisture = analogRead(A4);
+  }
+  else if(Pin_No == 415)
+  {
+    pinMode(A5, INPUT);
+    moisture = analogRead(A5);
+  }
+   
+  Serial1.print("D");
+  Serial1.print(Pin_No);
+  Serial1.print(":");
+  Serial1.println(moisture);
+  
+  
+}

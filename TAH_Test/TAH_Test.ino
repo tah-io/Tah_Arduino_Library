@@ -1,18 +1,43 @@
+#include <TAH.h>
+
+TAH myTAH;
 
 void setup()  
 {
-  // Open serial communications and wait for port to open:
-  Serial.begin(9600);
+ 
+  Serial.begin(9600);                       // Open serial port
+  myTAH.begin(9600);                        // Start TAH ble serial port
+  
+  myTAH.enterCommandMode();                 // Enters TAH command mode
+ 
+  myTAH.setName("DHIRAJ");                  // Sets TAH name
+  myTAH.setWorkMode(REMOTE_CONTROL);        // set TAH in Remote control mode
+  
+  myTAH.setiBeaconMode(ON);                 // set TAH in iBeacon Mode
+  myTAH.setiBeaconMajorValue("0001");       // Sets TAH iBeacons Major parameter value
+  myTAH.setiBeaconMinorValue("0100");       // Sets TAH iBeacons Minor parameter value
+  
+  myTAH.setUARTNotification(ON);            // send TAH connection status notification on UART
+  
+  myTAH.exitCommandMode();                  // Saves changed settings and exit command mode
+  
 
-  Serial1.begin(57600);
 
+  
 }
 
 void loop() // run over and over
 {
-  if (Serial1.available())
-    Serial.write(Serial1.read());
+  if (myTAH.available())
+  {
+    Serial.write(myTAH.read());
+  }
+  
   if (Serial.available())
-    Serial1.write(Serial.read());
+  {
+
+        myTAH.write(Serial.read());
+  
+  }
 }
 

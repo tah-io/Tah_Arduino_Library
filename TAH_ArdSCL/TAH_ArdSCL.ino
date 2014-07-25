@@ -7,7 +7,7 @@
               0 to 255 for Analog
               0 to 180 for Servo
 
-   e.g: Turn on Led 13- 0,13,1T
+   e.g: Turn on Led 13- 0,13,1R
 
    
 */
