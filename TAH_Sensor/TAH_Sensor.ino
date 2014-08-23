@@ -18,7 +18,9 @@
 
    
 */
+#include<TAH.h>
 
+TAH myTAH;
 
 int Sensor_Type; // Tells type of sensor
 int Pin_No; // Tells to which pin sensor is attached
@@ -37,8 +39,20 @@ int Input_Buffer[11];
 
 void setup()
 {
-Serial1.begin(57600);
+
 Serial.begin(9600);
+myTAH.begin(9600);
+
+
+myTAH.enterCommandMode();
+
+myTAH.setName("TAH");
+myTAH.setWorkRole(SLAVE);
+myTAH.setAuth(OPEN);
+myTAH.setWorkMode(REMOTE_CONTROL);
+myTAH.setiBeaconMode(ON);
+
+myTAH.exitCommandMode();
 
 }
 
@@ -47,16 +61,21 @@ void loop()
 {
     
          
-   if(Serial1.available())
+   if(myTAH.available())
    {
      
       
 
-      Sensor_Type = Serial1.parseInt();
-      Pin_No = Serial1.parseInt();
+      Sensor_Type = myTAH.parseInt();
+      Pin_No = myTAH.parseInt();
+
+      Serial.print(Sensor_Type);
+      Serial.print(",");
+      Serial.println(Pin_No);
+       
 
       
-      if(Serial1.read() == 'S')
+      if(myTAH.read() == 'S')
       {
         
 
@@ -161,10 +180,10 @@ void updateSonarSensor(int Pin_No)
   duration = pulseIn(Pin_No, HIGH);
   
   
-  Serial1.print("D");
-  Serial1.print(Pin_No);
-  Serial1.print(":");
-  Serial1.println(duration);
+  myTAH.print("D");
+  myTAH.print(Pin_No);
+  myTAH.print(":");
+  myTAH.println(duration);
   
   
 }
@@ -209,10 +228,10 @@ void updateTemperatureSensor(int Pin_No)
     temp = analogRead(A5);
   }
   
-  Serial1.print("D");
-  Serial1.print(Pin_No);
-  Serial1.print(":");
-  Serial1.println(temp);
+  myTAH.print("D");
+  myTAH.print(Pin_No);
+  myTAH.print(":");
+  myTAH.println(temp);
   
   
 }
@@ -227,10 +246,10 @@ void updateTouchSensor(int Pin_No)
    
   touch = digitalRead(Pin_No);
   
-  Serial1.print("D");
-  Serial1.print(Pin_No);
-  Serial1.print(":");
-  Serial1.println(touch);
+  myTAH.print("D");
+  myTAH.print(Pin_No);
+  myTAH.print(":");
+  myTAH.println(touch);
   
   
 }
@@ -273,11 +292,12 @@ void updateLightSensor(int Pin_No)
     pinMode(A5, INPUT);
     light = analogRead(A5);
   }
-   
-  Serial1.print("D");
-  Serial1.print(Pin_No);
-  Serial1.print(":");
-  Serial1.println(light);
+  
+  light = map(light,0,1023,0,100);
+  myTAH.print("D");
+  myTAH.print(Pin_No);
+  myTAH.print(":");
+  myTAH.println(light);
   
   
 }
@@ -320,10 +340,10 @@ void updateRainSensor(int Pin_No)
     rain = analogRead(A5);
   }
    
-  Serial1.print("D");
-  Serial1.print(Pin_No);
-  Serial1.print(":");
-  Serial1.println(rain);
+  myTAH.print("D");
+  myTAH.print(Pin_No);
+  myTAH.print(":");
+  myTAH.println(rain);
   
   
 }
@@ -366,10 +386,10 @@ void updateWindSensor(int Pin_No)
     wind = analogRead(A5);
   }
    
-  Serial1.print("D");
-  Serial1.print(Pin_No);
-  Serial1.print(":");
-  Serial1.println(wind);
+  myTAH.print("D");
+  myTAH.print(Pin_No);
+  myTAH.print(":");
+  myTAH.println(wind);
   
   
 }
@@ -383,10 +403,10 @@ void updatePIRMotionSensor(int Pin_No)
   
   motion = digitalRead(Pin_No);
    
-  Serial1.print("D");
-  Serial1.print(Pin_No);
-  Serial1.print(":");
-  Serial1.println(motion);
+  myTAH.print("D");
+  myTAH.print(Pin_No);
+  myTAH.print(":");
+  myTAH.println(motion);
   
   
 }
@@ -429,10 +449,12 @@ void updateSoilMoistureSensor(int Pin_No)
     moisture = analogRead(A5);
   }
    
-  Serial1.print("D");
-  Serial1.print(Pin_No);
-  Serial1.print(":");
-  Serial1.println(moisture);
+  moisture = map(moisture,0,1023,0,100); 
+   
+  myTAH.print("D");
+  myTAH.print(Pin_No);
+  myTAH.print(":");
+  myTAH.println(moisture);
   
   
 }

@@ -1,7 +1,7 @@
 /*
 
    
-   Pin Type: 0 = DIGITAL,  1 = ANALOG,  2 = SERVO,  3 = Send Pin Status
+   Pin Type: 0 = DIGITAL,  1 = ANALOG,  2 = SERVO,  3 = Send Analog Status,  4 = Send Digital Status
    Pin No: From 2 to 13 and 410 to 415 represents A0 to A5 pins
    Pin Value: 0 or 1 for Digital
               0 to 255 for Analog
@@ -13,6 +13,9 @@
 */
 
 #include <Servo.h> 
+#include<TAH.h>
+
+TAH myTAH;
 
 
 int Pin_Type;      //  Stores Pin Type  D:Digital, A:Analog ,S:Servo Function  // 
@@ -24,7 +27,7 @@ int Pin_Value;            //  Stores Pin Value 0001 or 0000 for digital, 0000 to
 int D2state,D3state,D4state,D5state,D6state,D7state,D8state,D9state,D10state,D11state,D12state,D13state;  // Parameters for Holding Digital Pin Status;
 int A0state,A1state,A2state,A3state,A4state,A5state; // Parameters for holding Analog Pin Status
 
-int AppValueUpdateRate = 14;
+int AppValueUpdateRate = 14;   // minimum value: 14 milliseconds
 
 /////////////////
 
@@ -35,8 +38,19 @@ Servo servo[30];
 
 void setup()
 {
-Serial1.begin(57600);
+
 Serial.begin(9600);
+myTAH.begin(9600);
+
+myTAH.enterCommandMode();
+
+myTAH.setName("TAH");
+myTAH.setWorkRole(SLAVE);
+myTAH.setAuth(OPEN);
+myTAH.setWorkMode(REMOTE_CONTROL);
+myTAH.setiBeaconMode(ON);
+
+myTAH.exitCommandMode();
 
 for(int i=2;i <= 13;i++)
 {
@@ -61,16 +75,18 @@ pinMode(A5,INPUT);
 
 void loop()
   {
+
+    
     
          
-     if(Serial1.available())
+     if(myTAH.available())
     {
      
       
 
-      Pin_Type = Serial1.parseInt();
-      Pin_No = Serial1.parseInt();
-      Pin_Value = Serial1.parseInt();
+      Pin_Type = myTAH.parseInt();
+      Pin_No = myTAH.parseInt();
+      Pin_Value = myTAH.parseInt();
 
       Serial.print(Pin_Type);
       Serial.print(",");
@@ -78,7 +94,7 @@ void loop()
       Serial.print(",");
       Serial.println(Pin_Value);
       
-      if(Serial1.read() == 'R')
+      if(myTAH.read() == 'R')
       {
         
 
@@ -112,15 +128,19 @@ void loop()
       else if(Pin_Type == 3)
       {
           updateAnalogstate();
+      }
+      
+      else if(Pin_Type == 4)
+      {
           updateDigitalstate();
       }
+      
 
-      }
 
- }
-   
+    }
 
-     
+  }
+
 }
 
   
@@ -145,30 +165,30 @@ void updateAnalogstate()
  
   /////////// Update Analog Values ///////////////      
         
-        Serial1.print("A0:");
-        Serial1.println(A0state);
+        myTAH.print("A0:");
+        myTAH.println(A0state);
         delay(AppValueUpdateRate);
         
-        Serial1.print("A1:");
-        Serial1.println(A1state);
+        myTAH.print("A1:");
+        myTAH.println(A1state);
         delay(AppValueUpdateRate);
         
-        Serial1.print("A2:");
-        Serial1.println(A2state);
+        myTAH.print("A2:");
+        myTAH.println(A2state);
         delay(AppValueUpdateRate);
         
-        Serial1.print("A3:");
-        Serial1.println(A3state);
+        myTAH.print("A3:");
+        myTAH.println(A3state);
         delay(AppValueUpdateRate);
         
-        Serial1.print("A4:");
-        Serial1.println(A4state);
+        myTAH.print("A4:");
+        myTAH.println(A4state);
         delay(AppValueUpdateRate);
         
-        Serial1.print("A5:");
-        Serial1.println(A5state);
+        myTAH.print("A5:");
+        myTAH.println(A5state);
         delay(AppValueUpdateRate);
-        
+      
 ////////////////////////////////////////////////// 
 }
 
@@ -178,9 +198,6 @@ void updateAnalogstate()
 void updateDigitalstate()
 {
      
-  
-      
- 
  /////////// Check Digital Pin Status //////////////   
          D2state = digitalRead(2);
          D3state = digitalRead(3);
@@ -195,71 +212,75 @@ void updateDigitalstate()
          D12state = digitalRead(12);
          D13state = digitalRead(13);
 ////////////////////////////////////////////////////  
- 
+ /*
+      myTAH.print("D");
+      myTAH.print(",");
+      myTAH.print(D2state);
+      myTAH.print(D3state);
+      myTAH.print(D4state);
+      myTAH.print(D5state);
+      myTAH.print(D6state);
+      myTAH.print(D7state);
+      myTAH.print(D8state);
+      myTAH.print(D9state);
+      myTAH.print(D10state);
+      myTAH.print(D11state);
+      myTAH.print(D12state);
+      myTAH.println(D13state);
+   */   
+      
   
   
  /////////// Update Digital Values ///////////////
 
-        Serial1.print("D2:");
-        Serial1.println(D2state);
+        myTAH.print("D2:");
+        myTAH.println(D2state);
         delay(AppValueUpdateRate);
         
-        Serial1.print("D3:");
-        Serial1.println(D3state);
+        myTAH.print("D3:");
+        myTAH.println(D3state);
         delay(AppValueUpdateRate);
         
-        Serial1.print("D4:");
-        Serial1.println(D4state);
+        myTAH.print("D4:");
+        myTAH.println(D4state);
         delay(AppValueUpdateRate);
         
-        Serial1.print("D5:");
-        Serial1.println(D5state);
+        myTAH.print("D5:");
+        myTAH.println(D5state);
         delay(AppValueUpdateRate);
         
-        Serial1.print("D6:");
-        Serial1.println(D6state);
+        myTAH.print("D6:");
+        myTAH.println(D6state);
         delay(AppValueUpdateRate);
         
-        Serial1.print("D7:");
-        Serial1.println(D7state);
+        myTAH.print("D7:");
+        myTAH.println(D7state);
         delay(AppValueUpdateRate);
         
-        Serial1.print("D8:");
-        Serial1.println(D8state);
+        myTAH.print("D8:");
+        myTAH.println(D8state);
         delay(AppValueUpdateRate);
         
-        Serial1.print("D9:");
-        Serial1.println(D9state);
+        myTAH.print("D9:");
+        myTAH.println(D9state);
         delay(AppValueUpdateRate);
         
-        Serial1.print("D10:");
-        Serial1.println(D10state);
+        myTAH.print("D10:");
+        myTAH.println(D10state);
         delay(AppValueUpdateRate);
         
-        Serial1.print("D11:");
-        Serial1.println(D11state);
+        myTAH.print("D11:");
+        myTAH.println(D11state);
         delay(AppValueUpdateRate);
         
-        Serial1.print("D12:");
-        Serial1.println(D12state);
+        myTAH.print("D12:");
+        myTAH.println(D12state);
         delay(AppValueUpdateRate);
         
-        Serial1.print("D13:");
-        Serial1.println(D13state);
+        myTAH.print("D13:");
+        myTAH.println(D13state);
         delay(AppValueUpdateRate);
-        
-      /*  Serial.print(D2state);
-        Serial.print(D3state);
-        Serial.print(D4state);
-        Serial.print(D5state);
-        Serial.print(D6state);
-        Serial.print(D7state);
-        Serial.print(D8state);
-        Serial.print(D9state);
-        Serial.print(D10state);
-        Serial.print(D11state);
-        Serial.print(D12state);
-        Serial.println(D13state); */
+
         
 //////////////////////////////////////////////////   
 }

@@ -13,14 +13,15 @@ void setup()
  
  myTAH.setName("TAH"); 
  
- myTAH.setWorkRole(SLAVE);
- myTAH.setAuth(OPEN);
- myTAH.setiBeaconMode(ON);
- myTAH.setiBeaconMajorValue("0064");       // Input MAJOR Value in HEX
- myTAH.setiBeaconMinorValue("0001");       // Input MINOR Value in HEX
+ myTAH.setWorkRole(MASTER);
+ myTAH.setWorkType(ATmode);
+ myTAH.setUARTNotification(ON);
+ myTAH.setDeviceScanFilter(ALL_BLE);
+ myTAH.setiBeaconDeployMode(BROADCAST_AND_SCAN);
+
 
   
-myTAH.exitCommandMode();                  // Saves changed settings and exit command mode
+  myTAH.exitCommandMode();                  // Saves changed settings and exit command mode
   
 
 
@@ -29,7 +30,6 @@ myTAH.exitCommandMode();                  // Saves changed settings and exit com
 
 void loop() // run over and over
 {
-  
   if (myTAH.available())
   {
     Serial.write(myTAH.read());
@@ -40,10 +40,9 @@ void loop() // run over and over
   {
 
         myTAH.write(Serial.read());
+        
+  
   }
-
-
-
 
 
   
