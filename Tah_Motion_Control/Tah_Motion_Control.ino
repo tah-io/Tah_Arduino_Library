@@ -1,4 +1,4 @@
-
+ 
 int LeftjoyX;
 int interval = 40;
 char val;          // Store Value of Buttonpadtag
@@ -24,7 +24,7 @@ void loop()
   
   if (Serial1.available()) 
   {
-    
+
     ///// Parsing Value From Left Controller
     
     LeftjoyX = Serial1.parseInt(); 
@@ -106,7 +106,7 @@ void loop()
     delay(interval);
     Keyboard.release(KEY_RIGHT_ARROW);
     
-    Serial.println("Left Arrow");
+    Serial.println("Right Arrow");
 
     }
     

@@ -16,8 +16,7 @@ void setup()
  myTAH.setWorkRole(SLAVE);
  myTAH.setAuth(OPEN);
  myTAH.setiBeaconMode(ON);
- myTAH.setiBeaconMajorValue("0064");       // Input MAJOR Value in HEX
- myTAH.setiBeaconMinorValue("0001");       // Input MINOR Value in HEX
+
 
   
 myTAH.exitCommandMode();                  // Saves changed settings and exit command mode

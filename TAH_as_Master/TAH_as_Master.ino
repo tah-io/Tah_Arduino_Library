@@ -13,6 +13,7 @@ void setup()
  
  myTAH.setName("TAH"); 
  
+ myTAH.setTransmissionPower(Six);
  myTAH.setWorkRole(MASTER);
  myTAH.setWorkType(ATmode);
  myTAH.setUARTNotification(ON);
