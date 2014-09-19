@@ -19,7 +19,7 @@ void setup()
   
   myTAH.enterCommandMode();                 // Enters TAH command mode
  
-  myTAH.setName("CUBE"); 
+  myTAH.setName("Cube"); 
  
   myTAH.setWorkRole(SLAVE);
   myTAH.setAuth(OPEN);
@@ -61,8 +61,8 @@ void loop()
     }
    else if(Y <= 210)
     {
-     myTAH.println("2");
-     Serial.println("2");
+     myTAH.println("6");
+     Serial.println("6");
     }
     
       if(X >= 270)
@@ -84,8 +84,8 @@ void loop()
     }
    else if(Z <= 210)
     {
-     myTAH.println("6");
-     Serial.println("6");
+     myTAH.println("2");
+     Serial.println("2");
     }
     
     
