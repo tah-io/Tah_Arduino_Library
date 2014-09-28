@@ -1,3 +1,7 @@
+ #include<TAH.h>
+
+TAH myTAH; 
+ 
  
 int LeftjoyX;
 int interval = 40;
@@ -11,7 +15,17 @@ void setup()
   
   // initialize serial:
   Serial.begin(9600);
-  Serial1.begin(9600);
+  myTAH.begin(9600);
+
+ myTAH.enterCommandMode();
+
+ myTAH.setName("Tah Motion");
+ myTAH.setWorkRole(SLAVE);
+ myTAH.setAuth(OPEN);
+ myTAH.setWorkMode(REMOTE_CONTROL);
+ myTAH.setiBeaconMode(ON);
+
+myTAH.exitCommandMode();
 
   Keyboard.begin();
   Mouse.begin();
@@ -22,17 +36,17 @@ void setup()
 void loop() 
 {
   
-  if (Serial1.available()) 
+  if (myTAH.available()) 
   {
 
     ///// Parsing Value From Left Controller
     
-    LeftjoyX = Serial1.parseInt(); 
+    LeftjoyX = myTAH.parseInt(); 
  
   //////////////Motion Controller ///////////////
 
 
-  if(Serial1.read() == 'M')
+  if(myTAH.read() == 'M')
 {
     Serial.println(LeftjoyX);
     if(LeftjoyX == 56)
@@ -130,6 +144,25 @@ void loop()
     Serial.println("Space Bar");
     }
     
+    else if(LeftjoyX == 40)
+    {
+    
+    Keyboard.press(KEY_UP_ARROW);
+    delay(interval);
+    Keyboard.release(KEY_UP_ARROW);
+    Serial.println("Up Arrow");
+    }
+    
+    
+    else if(LeftjoyX == 50)
+    {
+    
+    Keyboard.press(KEY_DOWN_ARROW);
+    delay(interval);
+    Keyboard.release(KEY_DOWN_ARROW);
+    Serial.println("Down Arrow");
+    }
+    
     
     else if(LeftjoyX == 96)
     {
@@ -153,50 +186,8 @@ void loop()
     Serial.println("Volume Down");
     }
     
-    
-    else if(LeftjoyX == 61)
+    else if(LeftjoyX == 75) 
     {
-    
-    Keyboard.press(KEY_LEFT_ARROW);
-    delay(interval);
-    Keyboard.release(KEY_LEFT_ARROW);
-    Serial.println("Left Arrow");
-    }
-    
-    
-    else if(LeftjoyX == 62)
-    {
-    
-    Keyboard.press(KEY_RIGHT_ARROW);
-    delay(interval);
-    Keyboard.release(KEY_RIGHT_ARROW);
-    Serial.println("Left Arrow");
-    }
-    
-    
-    else if(LeftjoyX == 63)
-    {
-    
-    Keyboard.press(KEY_UP_ARROW);
-    delay(interval);
-    Keyboard.release(KEY_UP_ARROW);
-    Serial.println("Left Arrow");
-    }
-    
-    
-    else if(LeftjoyX == 64)
-    {
-    
-    Keyboard.press(KEY_DOWN_ARROW);
-    delay(interval);
-    Keyboard.release(KEY_DOWN_ARROW);
-    Serial.println("Left Arrow");
-    }
-    
-    
-    else if(LeftjoyX == 75) // tap gesture
-    {
-    
     Mouse.press(MOUSE_LEFT);
     delay(interval);
     Mouse.release(MOUSE_LEFT);
