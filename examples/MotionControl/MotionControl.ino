@@ -1,4 +1,39 @@
- #include<TAH.h>
+/*
+
+ Tah Motion Control  
+ 
+ This sketch demonstrates the use of Tah Motion App with Tah board.
+
+ 
+ Circuit:
+* Just plug in your Tah in USB port or power it up with external 5V power supply.
+
+   
+ User Guide:
+   
+   Tah protocol we use to communicate between the App and a Tah is basically a comma seprated string with end character "R".
+   This protocol string is composed of 3 integer values with the end suffix "R" which represents end of string. 
+ 
+   1st Integer represents--> Pin Type: 0 = DIGITAL,  1 = ANALOG,  2 = SERVO,  3 = Send Analog Status,  4 = Send Digital Status
+   2nd Integer represents--> Pin No: From 2 to 13 for digital pins and 410 to 415 represents A0 to A5 analog pins
+   3rd Integer represents--> Pin Value: 0 or 1 for Digital
+                             0 to 255 for Analog
+                             0 to 179 for Servo
+
+   e.g:  So if we want to turn ON the default led attached to pin 13 then the protocol sting would be => 0,13,1R
+      
+  
+ 
+ Created Sep 2014
+ by Dhiraj Jadhao
+ 
+ This example is in the public domain       
+                                                                                                 
+   
+*/
+
+
+#include<TAH.h>
 
 TAH myTAH; 
  

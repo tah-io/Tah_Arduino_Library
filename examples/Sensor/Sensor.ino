@@ -1,4 +1,5 @@
 /*
+   
    Sensor Type: 
        0 = Sonar,  
        1 = Temperature,  
@@ -46,7 +47,7 @@ myTAH.begin(9600);
 
 myTAH.enterCommandMode();
 
-myTAH.setName("TAH");
+myTAH.setName("Tah sensor");
 myTAH.setWorkRole(SLAVE);
 myTAH.setAuth(OPEN);
 myTAH.setWorkMode(REMOTE_CONTROL);

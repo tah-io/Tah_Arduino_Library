@@ -1,14 +1,34 @@
 /*
 
+ TAH ArdSCL  
+ 
+ This sketch demonstrates the use of Tah App with board.
+ Tah by default ships with this sketch preuploaded.
+ 
+ Circuit:
+* Just plug in your Tah in USB port or power it up with external 5V power supply.
+
    
-   Pin Type: 0 = DIGITAL,  1 = ANALOG,  2 = SERVO,  3 = Send Analog Status,  4 = Send Digital Status
-   Pin No: From 2 to 13 and 410 to 415 represents A0 to A5 pins
-   Pin Value: 0 or 1 for Digital
-              0 to 255 for Analog
-              0 to 180 for Servo
+ User Guide:
+   
+   Tah protocol we use to communicate between the App and a Tah is basically a comma seprated string with end character "R".
+   This protocol string is composed of 3 integer values with the end suffix "R" which represents end of string. 
+ 
+   1st Integer represents--> Pin Type: 0 = DIGITAL,  1 = ANALOG,  2 = SERVO,  3 = Send Analog Status,  4 = Send Digital Status
+   2nd Integer represents--> Pin No: From 2 to 13 for digital pins and 410 to 415 represents A0 to A5 analog pins
+   3rd Integer represents--> Pin Value: 0 or 1 for Digital
+                             0 to 255 for Analog
+                             0 to 179 for Servo
 
-   e.g: Turn on Led 13- 0,13,1R
-
+   e.g:  So if we want to turn ON the default led attached to pin 13 then the protocol sting would be => 0,13,1R
+      
+  
+ 
+ Created Sep 2014
+ by Dhiraj Jadhao
+ 
+ This example is in the public domain       
+                                                                                                 
    
 */
 
@@ -18,9 +38,9 @@
 TAH myTAH;
 
 
-int Pin_Type;      //  Stores Pin Type  D:Digital, A:Analog ,S:Servo Function  // 
-int Pin_No;               //  Stores Pin Number starting either from 000 to 999 OR from A00 to A999
-int Pin_Value;            //  Stores Pin Value 0001 or 0000 for digital, 0000 to 1023 for Analog, 0000 to 0180 for Servo Function
+int Pin_Type;    //  Stores Pin Type  
+int Pin_No;      //  Stores Pin Number
+int Pin_Value;   //  Stores Pin Value 
 
 
 
@@ -34,7 +54,7 @@ int AppValueUpdateRate = 14;   // minimum value: 14 milliseconds
 
 
 int Input_Buffer[11];
-Servo servo[30];
+Servo servo[12];
 
 void setup()
 {
@@ -44,7 +64,7 @@ myTAH.begin(9600);
 
 myTAH.enterCommandMode();
 
-myTAH.setName("TAH");
+myTAH.setName("Tah");
 myTAH.setWorkRole(SLAVE);
 myTAH.setAuth(OPEN);
 myTAH.setWorkMode(REMOTE_CONTROL);
