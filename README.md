@@ -4,6 +4,8 @@ Tah Library
 This is the Arduino library for accessing the Bluetooth LE capability of the
 [Tah](http://tah.io) board
 
+### Documentation
+You can find the documentation [here](http://docs.tah.io/library/)
 ### Installing
 * You can download the latest source code for our Tah sketches from GitHub
 [here](https://github.com/tah-io/Tah_Arduino_Library/archive/master.zip)
