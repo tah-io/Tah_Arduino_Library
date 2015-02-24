@@ -53,8 +53,8 @@ void loop()
 
      
      // joystick value mapping
-     joyX = map(joyX, -9, 9, 0, 18);
-     joyY = map(joyY, -9, 9, 0, 18);
+     joyX = map(joyX, -128,128, 0, 255);
+     joyY = map(joyY, 128, -128, 0, 255);
 
 
     
@@ -64,12 +64,17 @@ void loop()
     if (myTAH.read() == 'P') 
     {
  
-      if(mode == 0)
+      if(mode == 0) // App is in PS mode
       {
       
+        // Always be getting fresh data
+         dataForController_t SonycontrollerData = SonygetControllerData();
+        // Then send out the data over the USB connection
+         // Joystick.set(controllerData) also works.
+        Joystick.setControllerData(SonycontrollerData);
       }
       
-      else if(mode == 1)
+      else if(mode == 1) // App is in Computer Joystick Mode
       {
       /////////  Button Pad mapped to User Defined Computer Keys  ////////////
 if(Buttonpadtag >> 0  && Buttonpadtag != 5 && Buttonpadtag != 6)
@@ -204,7 +209,7 @@ Keyboard.release(KEY_LEFT_ARROW);
 
 
 
-   /*
+   
 
      //print the three numbers in one string as hexadecimal:
      Serial.print(mode, DEC);
@@ -219,7 +224,7 @@ Keyboard.release(KEY_LEFT_ARROW);
 
      Serial.flush(); 
      
-   */  
+    
 
     }
   }
@@ -227,6 +232,71 @@ Keyboard.release(KEY_LEFT_ARROW);
 
 
 
+
+///////////// Play Station Data Structure /////////////
+
+dataForController_t SonygetControllerData(void)
+{  
+  // Set up a place for our controller data
+  //  Use the getBlankDataForController() function, since
+  //  just declaring a fresh dataForController_t tends
+  //  to get you one filled with junk from other, random
+  //  values that were in those memory locations before
+  dataForController_t controllerData = getBlankDataForController();
+  // Since our buttons are all held high and
+  //  pulled low when pressed, we use the "!"
+  //  operator to invert the readings from the pins
+  
+  
+    if(Buttonpadtag == 1)
+  {
+  controllerData.crossOn = 1;
+  Serial.println(" Cross");
+  }
+
+  else if(Buttonpadtag == 2)
+  {
+  controllerData.circleOn = 1;
+  Serial.println(" Circle");
+  }
+  
+  else if(Buttonpadtag == 3)
+  {
+  controllerData.squareOn = 1;
+  Serial.println(" Square");
+  }
+  
+  else if(Buttonpadtag == 4 )
+  {
+  controllerData.triangleOn = 1;
+  Serial.println(" Triangle");
+  }
+  
+  else if(Buttonpadtag == 7 )
+  {
+  controllerData.selectOn = 1;
+  Serial.println(" Select");
+  }
+  
+  else if(Buttonpadtag == 8 )
+  {
+  controllerData.startOn = 1;
+  Serial.println(" Start");
+  }
+  
+
+  
+  
+
+
+  // Set the analog sticks
+
+  controllerData.leftStickX = joyX;
+  controllerData.leftStickY = joyY;
+
+  // And return the data!
+  return controllerData;
+}
 
 
 

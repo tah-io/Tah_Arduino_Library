@@ -108,6 +108,11 @@ size_t TAH::print(long num)
     return n;
 }
 
+size_t TAH::print(unsigned long n, int base)
+{
+    return _serial->print((unsigned long) n, base);
+}
+
 
 
 
@@ -154,6 +159,11 @@ size_t TAH::println(long num)
     size_t n = _serial->println(num);
     
     return n;
+}
+
+size_t TAH::println(unsigned long n, int base)
+{
+    return _serial->println((unsigned long) n, base);
 }
 
 

@@ -1,16 +1,19 @@
 /*
 
- TAH ArdSCL  
- 
- This sketch demonstrates the use of Tah App with board.
- Tah by default ships with this sketch preuploaded.
+ ArdSCL  
+ ------
+ This sketch demonstrates the use of Tah App with the board.
+ Tah by default ships with this sketch pre-uploaded.
+ Refer to Tah website for more details: http://tah.io
+
  
  Circuit:
-* Just plug in your Tah in USB port or power it up with external 5V power supply.
+ --------
+ Just plug in your Tah in USB port or power it up with external 5V power supply.
 
    
  User Guide:
-   
+ ----------- 
    Tah protocol we use to communicate between the App and a Tah is basically a comma seprated string with end character "R".
    This protocol string is composed of 3 integer values with the end suffix "R" which represents end of string. 
  

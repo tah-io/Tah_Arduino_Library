@@ -1,16 +1,19 @@
 /*
 
  Tah Motion Control  
- 
+ ------------------
  This sketch demonstrates the use of Tah Motion App with Tah board.
+ Refer to Tah website for more details: http://tah.io
+
 
  
  Circuit:
-* Just plug in your Tah in USB port or power it up with external 5V power supply.
+ --------
+ Just plug in your Tah in USB port or power it up with external 5V power supply.
 
    
  User Guide:
-   
+ -----------  
    Tah protocol we use to communicate between the App and a Tah is basically a comma seprated string with end character "R".
    This protocol string is composed of 3 integer values with the end suffix "R" which represents end of string. 
  
@@ -38,7 +41,7 @@
 TAH myTAH; 
  
  
-int LeftjoyX;
+int mouseX,mouseY,scroll,keypress;
 int interval = 40;
 char val;          // Store Value of Buttonpadtag
 char mem = ' ';    // Store Value of Buttonpadtag till getting new Value
@@ -76,15 +79,31 @@ void loop()
 
     ///// Parsing Value From Left Controller
     
-    LeftjoyX = myTAH.parseInt(); 
+    mouseX = myTAH.parseInt();
+   
+    mouseY = myTAH.parseInt();
+  
+    scroll = myTAH.parseInt();
+ 
+    keypress = myTAH.parseInt(); 
+    
+    
+
  
   //////////////Motion Controller ///////////////
 
 
   if(myTAH.read() == 'M')
 {
-    Serial.println(LeftjoyX);
-    if(LeftjoyX == 56)
+   
+    Serial.print(mouseX);Serial.print(",");
+    Serial.print(mouseY);Serial.print(",");
+    Serial.print(scroll);Serial.print(",");
+    Serial.println(keypress);
+    
+    if(keypress > 255)
+    {
+    if(keypress == 258)
     {
     Keyboard.press(KEY_LEFT_CTRL);
     Keyboard.press(KEY_LEFT_ARROW);
@@ -97,7 +116,7 @@ void loop()
     
     }
      
-     else if(LeftjoyX == 65)
+     else if(keypress == 259)
     {
     
     Keyboard.press(KEY_LEFT_CTRL);
@@ -105,101 +124,32 @@ void loop()
     delay(interval);
     Keyboard.release(KEY_LEFT_CTRL);
     Keyboard.release(KEY_RIGHT_ARROW);
-    
     Serial.println("Left to Right");
     }
     
-    else if(LeftjoyX == 34)
+    
+    else if(keypress == 257)
     {
     Keyboard.press(KEY_LEFT_CTRL);
     Keyboard.press(KEY_DOWN_ARROW);
     delay(interval);
     Keyboard.release(KEY_LEFT_CTRL);
     Keyboard.release(KEY_DOWN_ARROW);
-    
-    
     Serial.println("Up to Down");
     }
     
-    else if(LeftjoyX == 43)
+    
+    else if(keypress == 256)
     {
     Keyboard.press(KEY_LEFT_CTRL);
     Keyboard.press(KEY_UP_ARROW);
     delay(interval);
     Keyboard.release(KEY_LEFT_CTRL);
     Keyboard.release(KEY_UP_ARROW);
-    
     Serial.println("Down to Up");
     }
     
-
-    else if(LeftjoyX == 98)
-    {
-    
-    Mouse.move(0, 0, 15);
-      
-    Serial.println("Scoll Up");
-    }
-
-    else if(LeftjoyX == 99)
-    {
-    
-    Mouse.move(0, 0, -15);
-    Serial.println("Scoll Down");
-    }
-    
-    else if(LeftjoyX == 10)
-    {
-    
-    Keyboard.press(KEY_RIGHT_ARROW);
-    delay(interval);
-    Keyboard.release(KEY_RIGHT_ARROW);
-    
-    Serial.println("Right Arrow");
-
-    }
-    
-    else if(LeftjoyX == 20)
-    {
-          
-      
-    Keyboard.press(KEY_LEFT_ARROW);
-    delay(interval);
-    Keyboard.release(KEY_LEFT_ARROW);
-    Serial.println("Left Arrow");
-    }
-    
-    
-    else if(LeftjoyX == 30)
-    {
-    Keyboard.press(32);
-    delay(interval);
-    Keyboard.release(32);
-    
-    Serial.println("Space Bar");
-    }
-    
-    else if(LeftjoyX == 40)
-    {
-    
-    Keyboard.press(KEY_UP_ARROW);
-    delay(interval);
-    Keyboard.release(KEY_UP_ARROW);
-    Serial.println("Up Arrow");
-    }
-    
-    
-    else if(LeftjoyX == 50)
-    {
-    
-    Keyboard.press(KEY_DOWN_ARROW);
-    delay(interval);
-    Keyboard.release(KEY_DOWN_ARROW);
-    Serial.println("Down Arrow");
-    }
-    
-    
-    else if(LeftjoyX == 96)
+        else if(keypress == 260)
     {
     Keyboard.press(KEY_LEFT_GUI);
     Keyboard.press(KEY_UP_ARROW);
@@ -211,7 +161,7 @@ void loop()
     
     
     
-    else if(LeftjoyX == 97)
+    else if(keypress == 261)
     {
     Keyboard.press(KEY_LEFT_GUI);
     Keyboard.press(KEY_DOWN_ARROW);
@@ -221,13 +171,162 @@ void loop()
     Serial.println("Volume Down");
     }
     
-    else if(LeftjoyX == 75) 
+
+    
+ }
+   
+   
+    else if(keypress<=255)
     {
-    Mouse.press(MOUSE_LEFT);
+    Keyboard.press(keypress);
     delay(interval);
-    Mouse.release(MOUSE_LEFT);
-    Serial.println("Left Mouse Click");
+    Keyboard.release(keypress);
     }
+    else
+    {
+    Keyboard.releaseAll();
+    }
+    
+    
+  /*
+    if(keypress == 263)
+    {
+    Keyboard.press(KEY_LEFT_CTRL);
+    Keyboard.press(KEY_LEFT_ARROW);
+    delay(interval);
+    Keyboard.release(KEY_LEFT_CTRL);
+    Keyboard.release(KEY_LEFT_ARROW);
+    
+    Serial.println("Right to Left");
+   
+    
+    }
+     
+     else if(keypress == 262)
+    {
+    
+    Keyboard.press(KEY_LEFT_CTRL);
+    Keyboard.press(KEY_RIGHT_ARROW);
+    delay(interval);
+    Keyboard.release(KEY_LEFT_CTRL);
+    Keyboard.release(KEY_RIGHT_ARROW);
+    
+    Serial.println("Left to Right");
+    }
+    
+    else if(keypress == 261)
+    {
+    Keyboard.press(KEY_LEFT_CTRL);
+    Keyboard.press(KEY_DOWN_ARROW);
+    delay(interval);
+    Keyboard.release(KEY_LEFT_CTRL);
+    Keyboard.release(KEY_DOWN_ARROW);
+    
+    
+    Serial.println("Up to Down");
+    }
+    
+    else if(keypress == 260)
+    {
+    Keyboard.press(KEY_LEFT_CTRL);
+    Keyboard.press(KEY_UP_ARROW);
+    delay(interval);
+    Keyboard.release(KEY_LEFT_CTRL);
+    Keyboard.release(KEY_UP_ARROW);
+    
+    Serial.println("Down to Up");
+    }
+    
+
+    else if(keypress == 98)
+    {
+    
+    Mouse.move(0, 0, 15);
+      
+    Serial.println("Scoll Up");
+    }
+
+    else if(keypress == 99)
+    {
+    
+    Mouse.move(0, 0, -15);
+    Serial.println("Scoll Down");
+    }
+    
+    else if(keypress == 10)
+    {
+    
+    Keyboard.press(KEY_RIGHT_ARROW);
+    delay(interval);
+    Keyboard.release(KEY_RIGHT_ARROW);
+    
+    Serial.println("Right Arrow");
+
+    }
+    
+    else if(keypress == 20)
+    {
+          
+      
+    Keyboard.press(KEY_LEFT_ARROW);
+    delay(interval);
+    Keyboard.release(KEY_LEFT_ARROW);
+    Serial.println("Left Arrow");
+    }
+    
+    
+    else if(keypress == 30)
+    {
+    Keyboard.press(32);
+    delay(interval);
+    Keyboard.release(32);
+    
+    Serial.println("Space Bar");
+    }
+    
+    else if(keypress == 40)
+    {
+    
+    Keyboard.press(KEY_UP_ARROW);
+    delay(interval);
+    Keyboard.release(KEY_UP_ARROW);
+    Serial.println("Up Arrow");
+    }
+    
+    
+    else if(keypress == 50)
+    {
+    
+    Keyboard.press(KEY_DOWN_ARROW);
+    delay(interval);
+    Keyboard.release(KEY_DOWN_ARROW);
+    Serial.println("Down Arrow");
+    }
+    
+    
+    else if(keypress == 96)
+    {
+    Keyboard.press(KEY_LEFT_GUI);
+    Keyboard.press(KEY_UP_ARROW);
+    delay(interval);
+    Keyboard.release(KEY_LEFT_GUI);
+    Keyboard.release(KEY_UP_ARROW);
+    Serial.println("Volume Up");
+    }
+    
+    
+    
+    else if(keypress == 97)
+    {
+    Keyboard.press(KEY_LEFT_GUI);
+    Keyboard.press(KEY_DOWN_ARROW);
+    delay(interval);
+    Keyboard.release(KEY_LEFT_GUI);
+    Keyboard.release(KEY_DOWN_ARROW);
+    Serial.println("Volume Down");
+    }
+    
+*/
     
     
     

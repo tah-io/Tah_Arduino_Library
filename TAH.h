@@ -87,6 +87,7 @@ public:
     size_t print(int, int = DEC);
     size_t print(unsigned int, int = DEC);
     size_t print(long);
+    size_t print(unsigned long, int = DEC);
     
     
     size_t println(const char[]);
@@ -95,6 +96,7 @@ public:
     size_t println(int, int = DEC);
     size_t println(unsigned int, int = DEC);
     size_t println(long);
+    size_t println(unsigned long, int = DEC);
     
     
     ///////////////////// TAH Configurate Parameters //////////////////////

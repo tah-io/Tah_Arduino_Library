@@ -1,6 +1,23 @@
 /*
-   
-   Sensor Type: 
+
+  Sensor  
+  ------
+  This sketch demonstrates the use of Tah Sensor App with the board.
+  Refer to Tah website for more details: http://tah.io
+
+  
+  Circuit:
+  --------
+  You can use Tah Relay and Semsor shield or can connect any sensors supported by app to Tahs GPIO pin.
+  
+  
+  User Guide:
+  -----------
+  Following sensors are supported by the App.
+  This app uses a string composed of 2 interger values with the end suffix "S" which represents end of string.
+  
+  1st Interger represents--> Sensor type connected and the assigned for those is as follows:
+  Sensor Type: 
        0 = Sonar,  
        1 = Temperature,  
        2 = Touch,  
@@ -9,16 +26,19 @@
        5 = Wind,  
        6 = PIR Motion,  
        7 = Soil Moisture 
-       
+   
+   2nd Interger represents--> Pin number to which sensor is connected and are assigned as follows:    
    Pin No: 
        From 2 to 13 and 
        410 to 415 represents A0 to A5 pins
 
 
-   e.g: 0,2S: Updates the Sonar Sensor value in App coonected to Digital Pin 2. And "S" is the end line character for TAH sensor app.
+   e.g: So if the incoming string is: 0,2S
+   Then it updates the Sonar Sensor value to app and "S" is the end line character for Tah sensor app.
 
    
 */
+
 #include<TAH.h>
 
 TAH myTAH;
@@ -75,7 +95,7 @@ void loop()
       Serial.println(Pin_No);
        
 
-      
+
       if(myTAH.read() == 'S')
       {
         

@@ -8,11 +8,9 @@ void setup()
   Serial.begin(9600);                       // Open serial port
   myTAH.begin(9600);                        // Start TAH ble serial port
   
-  myTAH.enterCommandMode();                 // Enters TAH command mode
+ myTAH.enterCommandMode();                 // Enters TAH command mode
  
- 
- myTAH.setName("TAH"); 
- 
+ myTAH.setName("Tah"); 
  myTAH.setTransmissionPower(Six);
  myTAH.setWorkRole(MASTER);
  myTAH.setWorkType(ATmode);
