@@ -133,6 +133,7 @@ void loop()
       //////////////Pin Type Analog ////////////
       else if(Pin_Type == 1 )
       {
+        servo[Pin_No].detach();
         analogWrite(Pin_No,Pin_Value);
       }
 
@@ -144,6 +145,7 @@ void loop()
        {
          servo[Pin_No].attach(Pin_No);
          servo[Pin_No].write(Pin_Value);
+         
        }
 
       ////////////////////////////////////////////// 
@@ -188,29 +190,31 @@ void updateAnalogstate()
  
   /////////// Update Analog Values ///////////////      
         
+        
         myTAH.print("A0:");
-        myTAH.println(A0state);
+        myTAH.print(A0state);
         delay(AppValueUpdateRate);
         
         myTAH.print("A1:");
-        myTAH.println(A1state);
+        myTAH.print(A1state);
         delay(AppValueUpdateRate);
         
         myTAH.print("A2:");
-        myTAH.println(A2state);
+        myTAH.print(A2state);
         delay(AppValueUpdateRate);
         
         myTAH.print("A3:");
-        myTAH.println(A3state);
+        myTAH.print(A3state);
         delay(AppValueUpdateRate);
         
         myTAH.print("A4:");
-        myTAH.println(A4state);
+        myTAH.print(A4state);
         delay(AppValueUpdateRate);
         
         myTAH.print("A5:");
-        myTAH.println(A5state);
+        myTAH.print(A5state);
         delay(AppValueUpdateRate);
+   
       
 ////////////////////////////////////////////////// 
 }
@@ -235,24 +239,7 @@ void updateDigitalstate()
          D12state = digitalRead(12);
          D13state = digitalRead(13);
 ////////////////////////////////////////////////////  
- /*
-      myTAH.print("D");
-      myTAH.print(",");
-      myTAH.print(D2state);
-      myTAH.print(D3state);
-      myTAH.print(D4state);
-      myTAH.print(D5state);
-      myTAH.print(D6state);
-      myTAH.print(D7state);
-      myTAH.print(D8state);
-      myTAH.print(D9state);
-      myTAH.print(D10state);
-      myTAH.print(D11state);
-      myTAH.print(D12state);
-      myTAH.println(D13state);
-   */   
-      
-  
+
   
  /////////// Update Digital Values ///////////////
 

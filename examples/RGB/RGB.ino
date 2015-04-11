@@ -2,7 +2,7 @@
 #include <Adafruit_NeoPixel.h>
 #define PIN 6
 
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(12, PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(72, PIN, NEO_GRB + NEO_KHZ800);
 
 TAH myTAH;
 
@@ -51,7 +51,7 @@ void loop() {
     {
 
       
-      colorWipe(strip.Color(red, green,blue), 30);
+      colorWipe(strip.Color(red, green,blue), 5);
       
       Serial.print(red);
       Serial.print(",");

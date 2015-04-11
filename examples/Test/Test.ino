@@ -11,7 +11,7 @@ void setup()
   myTAH.enterCommandMode();                 // Enters TAH command mode
  
  
- myTAH.setName("TAH"); 
+ myTAH.setName("Tah Test"); 
  
  myTAH.setWorkRole(SLAVE);
  myTAH.setAuth(OPEN);
