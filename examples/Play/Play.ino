@@ -1,5 +1,4 @@
 #include<TAH.h>
-
 TAH myTAH;
 
 
@@ -63,7 +62,7 @@ void loop()
     // sentence:
     if (myTAH.read() == 'P') 
     {
- 
+    
       if(mode == 0) // App is in PS mode
       {
       
@@ -76,14 +75,15 @@ void loop()
       
       else if(mode == 1) // App is in Computer Joystick Mode
       {
-      /////////  Button Pad mapped to User Defined Computer Keys  ////////////
-if(Buttonpadtag >> 0  && Buttonpadtag != 5 && Buttonpadtag != 6)
-{ 
-  val = Buttonpadtag;
-  mem = val;
-  Keyboard.press(val);
+     
+        /////////  Button Pad mapped to User Defined Computer Keys  ////////////
+     if(Buttonpadtag >> 0  && Buttonpadtag != 5 && Buttonpadtag != 6)
+     { 
+       val = Buttonpadtag;
+       mem = val;
+       Keyboard.press(val);
   
-}
+     }
 
 else
 {
@@ -231,8 +231,6 @@ Keyboard.release(KEY_LEFT_ARROW);
 }
 
 
-
-
 ///////////// Play Station Data Structure /////////////
 
 dataForController_t SonygetControllerData(void)
@@ -297,7 +295,6 @@ dataForController_t SonygetControllerData(void)
   // And return the data!
   return controllerData;
 }
-
 
 
 
